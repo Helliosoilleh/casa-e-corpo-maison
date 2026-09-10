@@ -1,3 +1,23 @@
+import zipfile, os, shutil
+# Extrai automaticamente o seu zip que tem tudo dentro
+if os.path.exists("midia_marketing.zip"):
+    try:
+        with zipfile.ZipFile("midia_marketing.zip", 'r') as zip_ref:
+            zip_ref.extractall(".")
+        # procura o produtos.json e config dentro do zip extraído e copia pra raiz
+        for root, dirs, files in os.walk("."):
+            for f in files:
+                if f == "produtos.json" and "midia_marketing" in root:
+                    # só copia se for maior que o de teste
+                    if os.path.getsize(os.path.join(root, f)) > 2000:
+                        shutil.copy(os.path.join(root, f), "./produtos.json")
+                if f.startswith("banner_loja"):
+                    shutil.copy(os.path.join(root, f), "./"+f)
+                if "midia_produtos" in root and f.lower().endswith((".jpg","jpeg","png")):
+                    os.makedirs("./midia_produtos", exist_ok=True)
+                    shutil.copy(os.path.join(root, f), "./midia_produtos/"+f)
+    except Exception as e:
+        print(e)
 import streamlit as st, json, os, glob, base64, requests
 import streamlit.components.v1 as components
 st.set_page_config(page_title="Casa e Corpo Maison", layout="wide")
