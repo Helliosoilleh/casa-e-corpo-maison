@@ -1,25 +1,5 @@
-import zipfile, os, shutil, pathlib, json, glob, base64, requests
-import streamlit as st
+import streamlit as st, json, os, glob, base64, requests
 import streamlit.components.v1 as components
-
-if os.path.exists("midia_marketing.zip"):
-    with zipfile.ZipFile("midia_marketing.zip", 'r') as z:
-        z.extractall(".")
-    # pega o produtos.json GRANDE (o seu de Natal)
-    for p in pathlib.Path(".").rglob("produtos.json"):
-        if p.stat().st_size > 5000:
-            shutil.copy(p, "produtos.json")
-            break
-    # pega banner e fotos
-    for p in pathlib.Path(".").rglob("banner_loja*"):
-        shutil.copy(p, pathlib.Path(".") / p.name)
-    pathlib.Path("midia_produtos").mkdir(exist_ok=True)
-    for p in pathlib.Path(".").rglob("*.jpg"):
-        if "midia_produtos" in str(p).lower():
-            try:
-                shutil.copy(p, pathlib.Path("midia_produtos") / p.name)
-            except: pass
-                
 st.set_page_config(page_title="Casa e Corpo Maison", layout="wide")
 
 if "carrinho" not in st.session_state:
