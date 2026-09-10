@@ -1,0 +1,27 @@
+[
+    {
+        "nome": "Camiseta Premium",
+        "preco": 79.9,
+        "img": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500"
+    },
+    {
+        "nome": "Moletom",
+        "preco": 99.9,
+        "img": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500"
+    },
+    {
+        "nome": "Boné",
+        "preco": 59.9,
+        "img": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500"
+    },
+    {
+        "nome": "ARVORE DE NATAL CANADENSE",
+        "preco": 99.9,
+        "img": "midia_produtos\\01_01_arvore-de-natal.jpg"
+    },
+    {
+        "nome": "GUIRLANDA NATALINA 30CM",
+        "preco": 49.9,
+        "img": "midia_produtos\\02 _guirlanda-natalina.jpg"
+    }
+]
