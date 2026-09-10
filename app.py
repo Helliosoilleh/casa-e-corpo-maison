@@ -1,25 +1,25 @@
-import zipfile, os, shutil
-# Extrai automaticamente o seu zip que tem tudo dentro
-if os.path.exists("midia_marketing.zip"):
-    try:
-        with zipfile.ZipFile("midia_marketing.zip", 'r') as zip_ref:
-            zip_ref.extractall(".")
-        # procura o produtos.json e config dentro do zip extraído e copia pra raiz
-        for root, dirs, files in os.walk("."):
-            for f in files:
-                if f == "produtos.json" and "midia_marketing" in root:
-                    # só copia se for maior que o de teste
-                    if os.path.getsize(os.path.join(root, f)) > 2000:
-                        shutil.copy(os.path.join(root, f), "./produtos.json")
-                if f.startswith("banner_loja"):
-                    shutil.copy(os.path.join(root, f), "./"+f)
-                if "midia_produtos" in root and f.lower().endswith((".jpg","jpeg","png")):
-                    os.makedirs("./midia_produtos", exist_ok=True)
-                    shutil.copy(os.path.join(root, f), "./midia_produtos/"+f)
-    except Exception as e:
-        print(e)
-import streamlit as st, json, os, glob, base64, requests
+import zipfile, os, shutil, pathlib, json, glob, base64, requests
+import streamlit as st
 import streamlit.components.v1 as components
+
+if os.path.exists("midia_marketing.zip"):
+    with zipfile.ZipFile("midia_marketing.zip", 'r') as z:
+        z.extractall(".")
+    # pega o produtos.json GRANDE (o seu de Natal)
+    for p in pathlib.Path(".").rglob("produtos.json"):
+        if p.stat().st_size > 5000:
+            shutil.copy(p, "produtos.json")
+            break
+    # pega banner e fotos
+    for p in pathlib.Path(".").rglob("banner_loja*"):
+        shutil.copy(p, pathlib.Path(".") / p.name)
+    pathlib.Path("midia_produtos").mkdir(exist_ok=True)
+    for p in pathlib.Path(".").rglob("*.jpg"):
+        if "midia_produtos" in str(p).lower():
+            try:
+                shutil.copy(p, pathlib.Path("midia_produtos") / p.name)
+            except: pass
+                
 st.set_page_config(page_title="Casa e Corpo Maison", layout="wide")
 
 if "carrinho" not in st.session_state:
