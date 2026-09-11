@@ -89,7 +89,7 @@ st.markdown(f"""
 header {{visibility: hidden;}}
 .topo-natal-fino {{
     position: fixed; top: 0; left: 0; right: 0; height: 70px;
-  background: #121212;
+ background: url(data:image/jpeg;base64,/9j/4AAQSkZJRg...); 
     z-index: 9999990; display: flex; align-items: center; justify-content: flex-end;
     padding-right: 20px; border-bottom: 2px solid #d4af37;
 }}
@@ -289,17 +289,14 @@ if st.session_state.pagina == "checkout":
                 st.balloons(); st.success(f"Pedido confirmado! {'Retirada no Rio' if st.session_state.tipo_entrega=='retirada' else f'Entrega para CEP {st.session_state.cep_cliente}'}"); st.session_state.carrinho={}
     st.stop()
 
-# LOJA - AGORA COM FOTO INTEIRA
-pastas=["midia_loja","midia","banners_da_loja"]
-todos=[]
-for p in pastas:
-    if os.path.exists(p): todos.extend(glob.glob(f"{p}/*"))
-if todos:
-    validos=[a for a in todos if a.lower().endswith((".png",".jpg",".jpeg",".webp",".mp4",".mov",".webm"))]
-    if validos:
-        mais_novo=sorted(validos, key=os.path.getmtime, reverse=True)[0]
-        if mais_novo.lower().endswith((".mp4",".mov",".webm")): st.video(mais_novo, autoplay=True, loop=True, muted=True)
-        else: st.image(mais_novo, use_container_width=True)
+# SÓ 1 BANNER - O QUE VOCÊ TROCA NO GESTÃO
+cfg_loja = carregar_json("config_loja.json", {})
+banner_atual = cfg_loja.get("banner_atual")
+if banner_atual and os.path.exists(banner_atual):
+    if banner_atual.lower().endswith((".mp4",".mov",".webm")):
+        st.video(banner_atual, autoplay=True, loop=True, muted=True)
+    else:
+        st.image(banner_atual, use_container_width=True)
 
 st.title("Nossos Produtos"); st.divider()
 if produtos:
