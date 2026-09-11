@@ -1,6 +1,8 @@
 {
-  "banner_titulo": "NATAL 2026",
-  "banner_subtitulo": "VERY CRHSTMAS",
-  "banner_validade": null,
-  "banner_cor_borda": "#B38728"
+    "banner_titulo": "NATAL 2026",
+    "banner_subtitulo": "VERY CRHSTMAS",
+    "banner_validade": null,
+    "banner_cor_borda": "#B38728",
+    "banner_atual": "midia/BANNER_2.JPG",
+    "banner_atualizado_em": "2026-09-11T12:23:06.267622"
 }
