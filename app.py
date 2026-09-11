@@ -2,9 +2,6 @@ import streamlit as st, json, os, glob, base64, requests
 import streamlit.components.v1 as components
 st.set_page_config(page_title="Casa e Corpo Maison", layout="wide")
 
-# --- BANNER TOPO NATAL ---
-if os.path.exists("topo_natal.png"):
-    st.image("topo_natal.png", use_container_width=True)
 if "carrinho" not in st.session_state:
     st.session_state.carrinho = {}
 if "pagina" not in st.session_state:
@@ -58,14 +55,10 @@ def calcular_frete_por_regiao(cep, total):
         return 0.0, "GRÁTIS", "Frete Grátis liberado"
     if not cep or len("".join(filter(str.isdigit, cep)))!= 8:
         return 19.90, "A calcular", "Digite seu CEP"
-
     cep_n = "".join(filter(str.isdigit, cep))
     prefix = int(cep_n[:2])
-
-    # RJ 20-28
     if 20 <= prefix <= 28:
         return 15.00, "PAC 2 dias úteis", "Rio de Janeiro"
-    # Sudeste SP/MG/ES 01-19, 29-39
     elif (1 <= prefix <= 19) or (29 <= prefix <= 39):
         return 25.00, "PAC 4 dias / SEDEX R$35 1 dia", "Sudeste"
     elif 80 <= prefix <= 91:
@@ -89,7 +82,7 @@ st.markdown(f"""
 header {{visibility: hidden;}}
 .topo-natal-fino {{
     position: fixed; top: 0; left: 0; right: 0; height: 70px;
- background: url(data:image/jpeg;base64,/9j/4AAQSkZJRg...); 
+    background: url(data:image/webp;base64,{b64_topo}) center/cover no-repeat, #1e1e1e;
     z-index: 9999990; display: flex; align-items: center; justify-content: flex-end;
     padding-right: 20px; border-bottom: 2px solid #d4af37;
 }}
@@ -118,7 +111,6 @@ header {{visibility: hidden;}}
 <div class="topo-natal-fino"></div>
 """, unsafe_allow_html=True)
 
-# --- CORREÇÃO DO CARRINHO NA TARJA FLUTUANTE - NÃO MEXE EM MAIS NADA ---
 components.html("""
 <script>
 function moverCarrinho() {
@@ -177,7 +169,6 @@ if st.session_state.pagina == "carrinho":
                     if st.button("➕", key=f"mais_{id_prod}"): st.session_state.carrinho[id_prod]+=1; st.rerun()
             st.divider()
 
-    # ===== OPÇÃO 3 + 4 - FRETE =====
     st.subheader("📦 Como quer receber?")
     opcao = st.radio("Escolha:", ["🚚 Entregar no meu endereço - Calcular por CEP", "🏠 Retirar no Rio - GRÁTIS"], index=0 if st.session_state.tipo_entrega=="entrega" else 1)
 
@@ -191,7 +182,6 @@ if st.session_state.pagina == "carrinho":
         st.session_state.tipo_entrega = "entrega"
         cep_input = st.text_input("Digite seu CEP", value=st.session_state.cep_cliente, placeholder="Ex: 22071-060", key="cep_carrinho")
         st.session_state.cep_cliente = cep_input
-
         endereco = None
         if cep_input and len("".join(filter(str.isdigit, cep_input))) == 8:
             endereco = buscar_cep(cep_input)
