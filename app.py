@@ -89,7 +89,7 @@ st.markdown(f"""
 header {{visibility: hidden;}}
 .topo-natal-fino {{
     position: fixed; top: 0; left: 0; right: 0; height: 70px;
-    background: url(data:image/webp;base64,{b64_topo}) center/cover no-repeat, #1e1e1e;
+  background: #121212;
     z-index: 9999990; display: flex; align-items: center; justify-content: flex-end;
     padding-right: 20px; border-bottom: 2px solid #d4af37;
 }}
