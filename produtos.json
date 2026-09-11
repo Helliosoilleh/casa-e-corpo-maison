@@ -23,5 +23,10 @@
         "nome": "GUIRLANDA NATALINA 30CM",
         "preco": 49.9,
         "img": "midia_produtos\\02 _guirlanda-natalina.jpg"
+    },
+    {
+        "nome": "guirlhanda",
+        "preco": 49.9,
+        "img": "midia/02 _guirlanda-natalina.jpg"
     }
 ]
