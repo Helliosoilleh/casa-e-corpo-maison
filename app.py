@@ -2,13 +2,6 @@ import streamlit as st, json, os, glob, base64, requests
 import streamlit.components.v1 as components
 st.set_page_config(page_title="Casa e Corpo Maison", layout="wide")
 
-# --- TARJA VERMELHA FLUTUANTE ---
-st.markdown("""
-<div style="position:fixed; top:0; left:0; width:100%; background:#cc0000; color:white; text-align:center; padding:10px; z-index:9999999; font-weight:bold; font-size:16px;">
-🎄 PROMOÇÃO DE NATAL - Frete Grátis + Descontos Especiais! 🎅
-</div>
-<style> .block-container {padding-top: 55px !important;} </style>
-""", unsafe_allow_html=True)
 # --- BANNER TOPO NATAL ---
 if os.path.exists("topo_natal.png"):
     st.image("topo_natal.png", use_container_width=True)
