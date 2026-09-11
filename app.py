@@ -9,7 +9,6 @@ st.markdown("""
 </div>
 <style> .block-container {padding-top: 55px !important;} </style>
 """, unsafe_allow_html=True)
-
 # --- BANNER TOPO NATAL ---
 if os.path.exists("topo_natal.png"):
     st.image("topo_natal.png", use_container_width=True)
