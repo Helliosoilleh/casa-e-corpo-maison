@@ -17,7 +17,8 @@
     {
         "nome": "ARVORE DE NATAL CANADENSE",
         "preco": 99.9,
-        "img": "midia_produtos\\01_01_arvore-de-natal.jpg"
+        "img": "midia_produtos/01_01_arvore-de-natal.jpg",
+        "foto": "midia_produtos/01_01_arvore-de-natal.jpg"
     },
     {
         "nome": "GUIRLANDA NATALINA 30CM",
